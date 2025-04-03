@@ -169,12 +169,12 @@ copy_project() {
   show_loader "\tCreating symlink from $SRC_PATH to $INSTALL_PATH/src"
 }
 
-# Get Raspberry Pi hostname
+# Get Khadas hostname
 get_hostname() {
   echo "$(hostname)"
 }
 
-# Get Raspberry Pi IP address
+# Get Khadas IP address
 get_ip_address() {
   ip_address=$(hostname -I | awk '{print $1}')
   echo "$ip_address"
@@ -185,11 +185,11 @@ ask_for_reboot() {
   hostname=$(get_hostname)
   ip_address=$(get_ip_address)
   echo_header "$(echo_success "${APPNAME^^} Installation Complete!")"
-  echo_header "[•] A reboot of your Raspberry Pi is required for the changes to take effect"
-  echo_header "[•] After your Pi is rebooted, you can access the web UI by going to $(echo_blue "'$hostname.local'") or $(echo_blue "'$ip_address'") in your browser."
+  echo_header "[•] A reboot of your Khadas board is required for the changes to take effect"
+  echo_header "[•] After your Pi is rebooted, you can access the web UI by going to $(echo_blue "'$ip_address'") in your browser."
   echo_header "[•] If you encounter any issues or have suggestions, please submit them here: https://github.com/fatihak/InkyPi/issues"
 
-  read -p "Would you like to restart your Raspberry Pi now? [Y/N] " userInput
+  read -p "Would you like to restart your Khadas board now? [Y/N] " userInput
   userInput="${userInput^^}"
 
   if [[ "${userInput,,}" == "y" ]]; then
@@ -197,10 +197,10 @@ ask_for_reboot() {
     sleep 2
     sudo reboot now
   elif [[ "${userInput,,}" == "n" ]]; then
-    echo "Please restart your Raspberry Pi later to apply changes by running 'sudo reboot now'."
+    echo "Please restart your Khadas board later to apply changes by running 'sudo reboot now'."
     exit
   else
-    echo "Unknown input, please restart your Raspberry Pi later to apply changes by running 'sudo reboot now'."
+    echo "Unknown input, please restart your Khadas board later to apply changes by running 'sudo reboot now'."
     sleep 1
   fi
 }
@@ -208,7 +208,7 @@ ask_for_reboot() {
 
 check_permissions
 stop_service
-enable_interfaces
+# enable_interfaces
 install_debian_dependencies
 copy_project
 create_venv
